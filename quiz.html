@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        h1 {
+            font-size: 3rem;
+            font-family: 'Pacifico', cursive;
+            font-weight: 700;
+            animation: bounce 1.5s infinite alternate;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
+        }
+        form {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            animation: scaleUp 0.5s ease-in-out;
+        }
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        label {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        input {
+            margin: 10px;
+        }
+        button {
+            background-color: #ff4b5c;
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background-color: #e84352;
+            transform: scale(1.1);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: 400;
+            animation: fadeIn 1s ease-in;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Your Health Knowledge 🧠</h1>
+    <form id="quizForm">
+        <div>
+            <label>1. What is the normal range for resting heart rate?</label><br>
+            <input type="radio" name="q1" value="a"> 60-100 BPM<br>
+            <input type="radio" name="q1" value="b"> 40-60 BPM<br>
+            <input type="radio" name="q1" value="c"> 100-120 BPM<br>
+        </div>
+
+        <div>
+            <label>2. How many hours of sleep should an adult get each night?</label><br>
+            <input type="radio" name="q2" value="a"> 5-6 hours<br>
+            <input type="radio" name="q2" value="b"> 7-9 hours<br>
+            <input type="radio" name="q2" value="c"> 10-12 hours<br>
+        </div>
+
+        <div>
+            <label>3. What is the normal blood pressure range for adults?</label><br>
+            <input type="radio" name="q3" value="a"> 120/80 mmHg<br>
+            <input type="radio" name="q3" value="b"> 140/90 mmHg<br>
+            <input type="radio" name="q3" value="c"> 100/60 mmHg<br>
+        </div>
+
+        <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+    </form>
+
+    <div id="quizResult" class="result"></div>
+
+    <script>
+        function submitQuiz() {
+            const answers = {
+                q1: "a",
+                q2: "b",
+                q3: "a"
+            };
+            let score = 0;
+
+            const q1Answer = document.querySelector('input[name="q1"]:checked');
+            const q2Answer = document.querySelector('input[name="q2"]:checked');
+            const q3Answer = document.querySelector('input[name="q3"]:checked');
+
+            if (q1Answer && q1Answer.value === answers.q1) score++;
+            if (q2Answer && q2Answer.value === answers.q2) score++;
+            if (q3Answer && q3Answer.value === answers.q3) score++;
+
+            let resultMessage = `You scored ${score} out of 3.`;
+            if (score === 3) {
+                resultMessage += " 🎉 Excellent knowledge on health!";
+            } else if (score === 2) {
+                resultMessage += " 👍 Good job, but there's room for improvement.";
+            } else {
+                resultMessage += " ❗ Try again to improve your knowledge!";
+            }
+
+            document.getElementById("quizResult").innerHTML = resultMessage;
+        }
+    </script>
+</body>
+</html>
