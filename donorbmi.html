@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donor Compatibility</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <h1>Blood Donor Compatibility</h1>
+    <p>Select your blood type to check compatibility with other blood types.</p>
+
+    <label for="bloodType">Select Your Blood Type: </label>
+    <select id="bloodType">
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+    </select>
+    <button onclick="checkCompatibility()">Check Compatibility</button>
+    <div id="loading" style="display:none;">Checking compatibility...</div>
+
+    <button onclick="resetFields()">Reset</button>
+    
+    <div id="result" class="result"></div>
+
+    <script>
+        function checkCompatibility() {
+            const bloodType = document.getElementById("bloodType").value; 
+            document.getElementById("loading").style.display = "block"; // Show loading indicator
+
+            const compatibility = {
+                "A+": { donors: "A+, A-, O+, O-", recipients: "A+, AB+" },
+                "A-": { donors: "A-, O-", recipients: "A+, A-, AB+, AB-" },
+                "B+": { donors: "B+, B-, O+, O-", recipients: "B+, AB+" },
+                "B-": { donors: "B-, O-", recipients: "B+, B-, AB+, AB-" },
+                "AB+": { donors: "Everyone (Universal Recipient)", recipients: "AB+" },
+                "AB-": { donors: "A-, B-, AB-, O-", recipients: "AB+, AB-" },
+                "O+": { donors: "O+, O-", recipients: "O+, A+, B+, AB+" },
+                "O-": { donors: "O- (Universal Donor)", recipients: "Everyone" }
+            };
+            
+            document.getElementById("result").innerHTML = 
+                `<strong>You can donate blood to:</strong> ${compatibility[bloodType].recipients}<br>
+                 <strong>You can receive blood from:</strong> ${compatibility[bloodType].donors}`;
+            document.getElementById("loading").style.display = "none"; // Hide loading indicator
+        }
+        
+        function resetFields() {
+            document.getElementById("bloodType").value = "A+";
+            document.getElementById("result").innerHTML = "";
+        }
+    </script>
+</body>
+</html>
